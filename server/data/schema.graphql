@@ -1,0 +1,40 @@
+type Campania{
+	id: ID
+	nombre: String
+	idSub: Int
+	html: String
+	activa: TipoCampania
+	variables: [Variable]
+}
+type Variable {
+	nom: String
+	valor: String
+}
+enum TipoCampania {
+	ACTIVADA
+	DESACTIVADA
+}
+type Query{
+	getCampanias(limite: Int, offset: Int): [Campania]
+	getCampania(id: ID): Campania
+	totalCampanias: String
+}
+input CampaniaInput{
+	id: ID
+	nombre: String!
+	idSub: Int!
+	html: String!
+	activa: TipoCampania
+	variables: [VariableInput]
+}
+input VariableInput{
+	nom: String!
+	valor: String
+}
+""" Mutations para crear nuevas campañas """
+type Mutation{
+	#Nombre del Resolver, Input con datos y valor que retorna
+	crearCampania(input: CampaniaInput): Campania
+	actualizarCampania(input: CampaniaInput): Campania
+	eliminarCampania(id: ID!): String
+}
